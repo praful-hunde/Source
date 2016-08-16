@@ -82,6 +82,7 @@ namespace OxyPlot.Series
             this.CanTrackerInterpolatePoints = true;
             this.LabelMargin = 6;
             this.smoothedPoints = new List<DataPoint>();
+            
         }
 
         /// <summary>

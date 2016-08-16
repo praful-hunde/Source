@@ -301,6 +301,12 @@ namespace OxyPlot.Wpf
                 case CursorType.ZoomVertical:
                     this.Cursor = this.ZoomVerticalCursor;
                     break;
+                case CursorType.SizeNS:
+                    this.Cursor = Cursors.SizeNS;
+                    break;
+                case CursorType.SizeWE:
+                    this.Cursor = Cursors.SizeWE;
+                    break;
                 default:
                     this.Cursor = Cursors.Arrow;
                     break;

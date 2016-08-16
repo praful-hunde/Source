@@ -17,6 +17,7 @@
             lineSeries.Points.Add(new DataPoint(20, 12));
             lineSeries.Points.Add(new DataPoint(30, 8));
             lineSeries.Points.Add(new DataPoint(40, 15));
+            lineSeries.Smooth = true;
 
             model.Series.Add(lineSeries);
             this.Model = model;

@@ -37,6 +37,18 @@ namespace OxyPlot
         /// <summary>
         /// The vertical zoom cursor
         /// </summary>
-        ZoomVertical
+        ZoomVertical,
+
+        /// <summary>
+        /// The Size North South cursor
+        /// </summary>
+        SizeNS,
+
+        /// <summary>
+        /// The Size West East cursor
+        /// </summary>
+        SizeWE
+
+
     }
 }

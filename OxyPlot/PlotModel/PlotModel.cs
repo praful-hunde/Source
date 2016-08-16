@@ -326,6 +326,8 @@ namespace OxyPlot
         /// <value>The default size of the font.</value>
         public double DefaultFontSize { get; set; }
 
+        public bool DisablePanOnPlotArea { get; set; }
+
         /// <summary>
         /// Gets the actual culture.
         /// </summary>
@@ -828,31 +830,34 @@ namespace OxyPlot
             xaxis = yaxis = null;
 
             // Get the axis position of the given point. Using null if the point is inside the plot area.
-            AxisPosition? position = null;
+            AxisPosition? axisPosition = null;
             double plotAreaValue = 0;
             if (pt.X < this.PlotArea.Left)
             {
-                position = AxisPosition.Left;
+                axisPosition = AxisPosition.Left;
                 plotAreaValue = this.PlotArea.Left;
             }
 
             if (pt.X > this.PlotArea.Right)
             {
-                position = AxisPosition.Right;
+                axisPosition = AxisPosition.Right;
                 plotAreaValue = this.PlotArea.Right;
             }
 
             if (pt.Y < this.PlotArea.Top)
             {
-                position = AxisPosition.Top;
+                axisPosition = AxisPosition.Top;
                 plotAreaValue = this.PlotArea.Top;
             }
 
             if (pt.Y > this.PlotArea.Bottom)
             {
-                position = AxisPosition.Bottom;
+                axisPosition = AxisPosition.Bottom;
                 plotAreaValue = this.PlotArea.Bottom;
             }
+
+            if (DisablePanOnPlotArea && axisPosition == null)
+                return;
 
             foreach (var axis in this.Axes)
             {
@@ -886,7 +891,7 @@ namespace OxyPlot
 
                 if (x >= axis.ActualMinimum && x <= axis.ActualMaximum)
                 {
-                    if (position == null)
+                    if (axisPosition == null)
                     {
                         if (axis.IsHorizontal())
                         {
@@ -903,14 +908,14 @@ namespace OxyPlot
                             }
                         }
                     }
-                    else if (position == axis.Position)
+                    else if (axisPosition == axis.Position)
                     {
                         // Choose right tier
                         double positionTierMinShift = axis.PositionTierMinShift;
                         double positionTierMaxShift = axis.PositionTierMaxShift;
 
                         double posValue = axis.IsHorizontal() ? pt.Y : pt.X;
-                        bool isLeftOrTop = position == AxisPosition.Top || position == AxisPosition.Left;
+                        bool isLeftOrTop = axisPosition == AxisPosition.Top || axisPosition == AxisPosition.Left;
                         if ((posValue >= plotAreaValue + positionTierMinShift
                              && posValue < plotAreaValue + positionTierMaxShift && !isLeftOrTop)
                             ||
@@ -1163,6 +1168,14 @@ namespace OxyPlot
                 var args = new TrackerEventArgs { HitResult = result };
                 handler(this, args);
             }
+        }
+
+        public bool IsPointOnAxis(ScreenPoint pt)
+        {
+            return (pt.X < this.PlotArea.Left)
+               || (pt.X > this.PlotArea.Right)
+              || (pt.Y < this.PlotArea.Top)
+              || (pt.Y > this.PlotArea.Bottom);
         }
 
         /// <summary>

@@ -252,7 +252,7 @@ namespace ExampleLibrary
             var model = new PlotModel { Title = "LineAnnotation", Subtitle = "Click and drag the annotation line." };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = -20, Maximum = 80 });
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = -10, Maximum = 10 });
-            var la = new LineAnnotation { Type = LineAnnotationType.Vertical, X = 4 };
+            var la = new LineAnnotation { Type = LineAnnotationType.Vertical, X = 4 ,Text="Line Text" , TextOrientation= AnnotationTextOrientation.AlongLine};
             la.MouseDown += (s, e) =>
                 {
                     if (e.ChangedButton != OxyMouseButton.Left)

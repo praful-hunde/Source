@@ -66,6 +66,12 @@ namespace OxyPlot.Series
         public string TrackerKey { get; set; }
 
         /// <summary>
+        /// Gets or sets the Tolerance value used to perform hit test. 
+        /// </summary>
+        /// <remarks>This value is to override default Tolerance recieved from HitTestArguments.</remarks>
+        public double? HitTestTolerance { get; set; }
+
+        /// <summary>
         /// Gets the point on the series that is nearest the specified point.
         /// </summary>
         /// <param name="point">The point.</param>
@@ -147,7 +153,8 @@ namespace OxyPlot.Series
             if (thr != null)
             {
                 double distance = thr.Position.DistanceTo(args.Point);
-                if (distance > args.Tolerance)
+                var tolerance = this.HitTestTolerance != null || this.HitTestTolerance > 0 ? this.HitTestTolerance : args.Tolerance;
+                if (distance > tolerance)
                 {
                     return null;
                 }

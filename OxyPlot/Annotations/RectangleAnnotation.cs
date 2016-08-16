@@ -17,7 +17,11 @@ namespace OxyPlot.Annotations
         /// <summary>
         /// The rectangle transformed to screen coordinates.
         /// </summary>
-        private OxyRect screenRectangle;
+        protected OxyRect screenRectangle;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected OxyRect clippingRectangle;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangleAnnotation" /> class.
@@ -79,7 +83,7 @@ namespace OxyPlot.Annotations
             this.screenRectangle = new OxyRect(this.Transform(x0, y0), this.Transform(x1, y1));
 
             // clip to the area defined by the axes
-            var clippingRectangle = this.GetClippingRect();
+            clippingRectangle = this.GetClippingRect();
 
             rc.DrawClippedRectangle(
                 clippingRectangle,
